@@ -83,12 +83,23 @@ class Response
         return json_encode($data);
     }
     private function  convertXML($data) {
-        //header("Content-Type: text/xml");
-        //$xml = new SimpleXMLElement('<root/>');
-        var_dump($data);
-       // $data = array_flip($data);
-        //array_walk_recursive($data, array ($xml, 'addChild'));
-        //return $xml->asXML();
+       header("Content-Type: text/xml");
+        $xml = new SimpleXMLElement('<root/>');
+        if (count($data,1) != count($data))
+        {
+            foreach ($data as $car)
+            {
+                $data =  array_flip($car);
+                array_walk_recursive($data, array ($xml, 'addChild'));
+            }
+        }
+        else
+        {
+            $data = array_flip($data);
+            array_walk_recursive($data, array ($xml, 'addChild'));
+        }
+
+       return $xml->asXML();
     }
     private function convertTXT($data)
     {
