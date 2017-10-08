@@ -25,7 +25,7 @@ class RestServer
                     $this->setMethod($controller,'put'.ucfirst($class),explode('/', $this->cleanInputs($data)));
                     break;
                 case 'DELETE':
-                    $this->setMethod($controller,'put'.ucfirst($class),explode('/', $this->cleanInputs($data)));
+                    $this->setMethod($controller,'delete'.ucfirst($class),explode('/', $this->cleanInputs($data)));
                     break;
                 default:
                     return false;

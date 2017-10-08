@@ -8,7 +8,8 @@ class Order
 
     public function getOrder ($data = false)
     {
-        echo 'getOrder';
+        echo "order";
+
     }
 
 }

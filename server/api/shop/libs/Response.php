@@ -54,9 +54,6 @@ class Response
         );
     }
 
-
-
-
     public static function typeData ($data, $type)
     {
         switch ($type)

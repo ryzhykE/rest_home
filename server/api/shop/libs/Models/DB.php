@@ -13,7 +13,7 @@ class DB
 
         if (!$this->dbh = new \PDO('mysql:host='.HOST.';dbname='.DB, USER, PASSWORD))
         {
-            throw new Exception(NO_CONNECT);
+            throw new \Exception(NO_CONNECT);
         }
     }
 
@@ -22,7 +22,7 @@ class DB
         $sth = $this->dbh->prepare($sql);
         $result = $sth->execute($data);
         if (false === $result) {
-            throw new Exception(NO_CONNECT);
+            throw new \Exception(NO_CONNECT);
             die;
         }
         return $sth->fetchAll(\PDO::FETCH_ASSOC);
@@ -32,12 +32,9 @@ class DB
     {
         $sth = $this->dbh->prepare($sql);
         $result = $sth->execute($data);
-        if (false === $result) {
-            throw new Exception(NO_CONNECT);
-            die;
-        }
-        return true;
+        return $result;
     }
+
 
     public function lastInsertId()
     {

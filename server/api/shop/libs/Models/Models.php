@@ -21,8 +21,7 @@ class Models
         $db = DB::getInstance();
         $data = $db->query(
             'SELECT * FROM ' . static::$table . ' WHERE id=:id',
-            [':id' => $id],
-            static::class
+            [':id' => $id]
         );
         return $data[0] ?? false;
     }
