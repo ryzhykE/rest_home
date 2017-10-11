@@ -12,21 +12,21 @@ class Order
         $result = \Models\Orders::orders($id);
         if(false === $result)
         {
-           echo  \Response::ClientError(404, "No resource with id: " . $data[0] );
+           return  \Response::ClientError(404, "No resource with id: " . $data[0] );
         }
         else
         {
             $results = \Response::typeData($result,$type);
-            return $results;
-            echo \Response::ServerSuccess(200, "OK");
+            echo $results;
+            //return \Response::ServerSuccess(200, "OK");
         }
     }
 
     public function postOrder()
     {
-        $status = $_POST['status'];
+        $car = $_POST['id_car'];
         $id = $_POST['id_user'];
-        $result = \Models\Orders::addOrder($status,$id);
+        $result = \Models\Orders::addOrder($car,$id);
         return $result;
         echo \Response::ServerSuccess(200, "OK");
     }

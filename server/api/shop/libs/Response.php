@@ -24,7 +24,6 @@ class Response
         return array(
             400 => "HTTP/1.0 400 Bad Request",
             401 => "HTTP/1.0 401 Unauthorized",
-            402 => "HTTP/1.0 402",
             403 => "HTTP/1.0 403 Forbidden",
             404 => "HTTP/1.0 404 Not Found",
             405 => "HTTP/1.0 405 Method Not Allowed",

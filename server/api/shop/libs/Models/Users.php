@@ -26,7 +26,8 @@ class Users extends Models
             'SELECT * FROM ' . static::$table . ' WHERE login=:login',
             [':login' => $login]
         );
-        return $data[0] ?? false;
+        return $data[0];
+		//?? false;
     }
 
     public static function setHash($id)
@@ -37,7 +38,9 @@ class Users extends Models
         $result = $db->execute($sql);
         setcookie("id", $id, time()+60*60*24*30, '/');
         setcookie("hash", $hash, time()+60*60*24*30, '/');
-        return true;
+		$arr = ['id'=>$id, 'hash'=>$hash];
+        return json_encode($arr);
+
     }
 
     public static function logoutUser()
@@ -57,7 +60,8 @@ class Users extends Models
                 'SELECT hash FROM ' . static::$table . ' WHERE id=:id',
                 [':id' => $id]
             );
-        return $data[0] ?? false;
+        return $data[0]['hash'];
+		//?? false;
     }
 
     function generateCode($length = 6)

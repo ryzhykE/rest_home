@@ -6,6 +6,7 @@ class Cars
 {
     public function getCars ($data = false,$type = false)
     {
+		
         if($data[0] == "")
         {
             $result = \Models\Cars::findAll();
@@ -16,6 +17,7 @@ class Cars
         {
             $result = \Models\Cars::findByid($data[0]);
             $results = \Response::typeData($result,$type);
+			print_r( $results);
         }
 
     }

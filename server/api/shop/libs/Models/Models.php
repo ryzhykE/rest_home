@@ -23,7 +23,8 @@ class Models
             'SELECT * FROM ' . static::$table . ' WHERE id=:id',
             [':id' => $id]
         );
-        return $data[0] ?? false;
+        return $data[0] ;
+		//?? false;
     }
 
     public static function orders($id)
@@ -34,14 +35,15 @@ class Models
              FROM ' . static::$table . ' , cars WHERE orders.id_car=cars.id AND orders.id_user=:id',
             [':id' => $id]
         );
-        return $data[0] ?? false;
+        return $data[0];
+		//?? false;
 
     }
 
-    public static function addOrder($id_car,$id_user,$status)
+    public static function addOrder($id_car,$id_user)
     {
         $sql = "INSERT INTO  " . static::$table ." ( id_car, id_user, status)
-                VALUES ( '$id_car', '$id_user', '$status')";
+                VALUES ( '$id_car', '$id_user', 'send')";
         $db = DB::getInstance();
         $result = $db->execute($sql);
         return $result;

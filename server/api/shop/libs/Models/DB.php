@@ -18,6 +18,7 @@ class DB
     }
 
     public function query( $sql,$data = [])
+	//public function query(string $sql, array $data = [])
     {
         $sth = $this->dbh->prepare($sql);
         $result = $sth->execute($data);
@@ -28,7 +29,8 @@ class DB
         return $sth->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function execute(string $sql, array $data = [])
+	public function execute($sql,$data = [])
+    //public function execute(string $sql, array $data = [])
     {
         $sth = $this->dbh->prepare($sql);
         $result = $sth->execute($data);
