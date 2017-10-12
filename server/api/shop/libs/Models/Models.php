@@ -23,7 +23,7 @@ class Models
             'SELECT * FROM ' . static::$table . ' WHERE id=:id',
             [':id' => $id]
         );
-        return $data[0] ;
+        return $data[0];
 		//?? false;
     }
 
@@ -35,7 +35,7 @@ class Models
              FROM ' . static::$table . ' , cars WHERE orders.id_car=cars.id AND orders.id_user=:id',
             [':id' => $id]
         );
-        return $data[0];
+        return $data;
 		//?? false;
 
     }

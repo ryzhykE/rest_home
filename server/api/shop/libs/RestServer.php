@@ -8,11 +8,10 @@ class RestServer
         list($s, $user, $REST, $server, $api, $class, $data) = explode("/", $_SERVER['REQUEST_URI'], 7);
         $className = 'Controllers\\'.ucfirst($class);
         $this->reqMethod = $_SERVER['REQUEST_METHOD'];
-
+		
         if( class_exists($className) ) {
             $controller = new $className;
-            $type = (preg_match('#(\.[a-z]+)#', $_SERVER['REQUEST_URI'], $match)) ? $match[0] : JSON_TYPE;
-
+            $type = (preg_match('#(\.[a-z]+)#', $_SERVER['REQUEST_URI'], $match)) ? $match[0] : DEFAULT_TYPE;
             switch ($this->reqMethod)
             {
                 case 'GET':
@@ -37,7 +36,6 @@ class RestServer
         }
 
     }
-
 
     private function setMethod($class, $method,$param = false, $type = false)
     {

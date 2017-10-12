@@ -74,53 +74,57 @@ class Response
     }
 
 
-    private function  convertJSON($data) {
+    private function  convertJSON($data)
+    {
         header('Content-Type: application/json');
         return json_encode($data);
     }
-    private function  convertXML($data) {
-       header("Content-Type: text/xml");
-        $xml = new SimpleXMLElement('<root/>');
-        if (count($data,1) != count($data))
+
+    private function  convertXML($data)
+    {
+
+        header("Content-type: text/xml");
+        $xml = new SimpleXMLElement('<?xml version="1.0"?><data></data>');
+        self::toXml($data, $xml);
+        return $xml->asXML();
+
+    }
+
+
+    private function toXml($data, $xml)
+    {
+        foreach($data as $key=>$val)
         {
-            foreach ($data as $car)
+            if(is_numeric($key))
             {
-                $data =  array_flip($car);
-                array_walk_recursive($data, array ($xml, 'addChild'));
+                $key = 'car'.$key ;
+
+            }
+            if(is_array($val))
+            {
+                $subnode = $xml->addChild($key);
+                self::toXml($val, $subnode);
+            }
+            else
+            {
+                $xml->addChild("$key",htmlspecialchars("$val"));
             }
         }
-        else
-        {
-            $data = array_flip($data);
-            array_walk_recursive($data, array ($xml, 'addChild'));
-        }
-
-       return $xml->asXML();
     }
+
     private function convertTXT($data)
     {
         header('Content-Type: text/javascript; charset=utf-8');
         print_r($data);
     }
+
     private function convertHTML($data)
     {
         header('Content-Type: text/html; charset=utf-8');
-        if(is_array($data))
-        {
-            print_r('<head>');
-            print_r('</head>');
-            print_r('<body>');
-            print_r('<pre>');
-            foreach($data as $key => $value)
-            {
-                print_r($key . ':' . $value . '<br>');
-            }
-            print_r('</pre>');
-            return;
-        }
-        $data = '<pre>' .  $data . '</pre>';
-        print_r($data);
-        print_r('</body>');
+        ob_start();
+        include "/../View/template.php";
+        $html = ob_get_contents();
+        ob_end_clean();
+        print_r($html) ;
     }
-
 }
